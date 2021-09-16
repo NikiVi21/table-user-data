@@ -15,6 +15,7 @@ const App = (props) => {
   const [searchValue, setSearchValue] = useState("");
 
   const filterNames = ({ firstName }) => {
+    console.log(firstName);
     return firstName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
   };
 
@@ -124,7 +125,16 @@ const App = (props) => {
       }
     }
   }
+  //pagination
 
+  const [currentPage, setCurrentPage] = useState(0);
+  let previousPage = () => {
+    if (currentPage !== 0) setCurrentPage(currentPage - 1);
+  };
+  let nextPage = () => {
+    if (currentPage + 1 < props.data.length) setCurrentPage(currentPage + 1);
+  };
+  //
   return (
     <div className="App">
       <div className="searchContainer">
@@ -156,6 +166,7 @@ const App = (props) => {
         </thead>
         <tbody>
           {props.data
+            .slice(currentPage * 20, (currentPage + 1) * 20)
             .filter(filterNames)
             .filter(filterState)
             .map((u) => {
@@ -172,6 +183,12 @@ const App = (props) => {
             })}
         </tbody>
       </table>
+      <button className="pageBtn" onClick={previousPage}>
+        ❮
+      </button>
+      <button className="pageBtn" onClick={nextPage}>
+        ❯
+      </button>
       {user ? (
         <div className="profileInfo">
           Profile info:
