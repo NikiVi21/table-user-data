@@ -18,4 +18,4 @@
 ## Дополнительная функциональность:
 * Реализована пагинация
 
-## Протестировать: (https://nikivi21.github.io/test-task-itrex)
+## Протестировать: (https://nikivi21.github.io/table-user-data)
