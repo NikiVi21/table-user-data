@@ -17,11 +17,12 @@ const App = (props) => {
   const filterNames = ({ firstName }) => {
     return firstName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
   };
+  let filteredArr = props.data.filter(filterNames);
 
   const [searchState, setSearchState] = useState("");
 
   const filterState = ({ adress }) => {
-    if (!searchState || searchState === "DEFAULT") return 1;
+    if (!searchState || searchState === "DEFAULT") return -1;
     if (adress.state === searchState) return 1;
   };
 
@@ -139,7 +140,7 @@ const App = (props) => {
     <div className="App">
       <div className="searchContainer">
         <SearchInput onSearch={setSearchValue} value={searchValue} />
-        <SelectState allValue={props.data} onSearchState={setSearchState} />
+        <SelectState allValue={filteredArr} onSearchState={setSearchState} />
       </div>
       <table id="myTable">
         <thead>
