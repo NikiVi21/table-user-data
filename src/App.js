@@ -15,7 +15,6 @@ const App = (props) => {
   const [searchValue, setSearchValue] = useState("");
 
   const filterNames = ({ firstName }) => {
-    console.log(firstName);
     return firstName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
   };
 
@@ -132,7 +131,8 @@ const App = (props) => {
     if (currentPage !== 0) setCurrentPage(currentPage - 1);
   };
   let nextPage = () => {
-    if (currentPage + 1 < props.data.length) setCurrentPage(currentPage + 1);
+    let pagesCount = Math.ceil(props.data.length / props.pageSize);
+    if (currentPage + 1 < pagesCount) setCurrentPage(currentPage + 1);
   };
   //
   return (
@@ -166,7 +166,6 @@ const App = (props) => {
         </thead>
         <tbody>
           {props.data
-            .slice(currentPage * 20, (currentPage + 1) * 20)
             .filter(filterNames)
             .filter(filterState)
             .map((u) => {
@@ -180,7 +179,11 @@ const App = (props) => {
                   <td>{u.adress.state}</td>
                 </tr>
               );
-            })}
+            })
+            .slice(
+              currentPage * props.pageSize,
+              (currentPage + 1) * props.pageSize
+            )}
         </tbody>
       </table>
       <button className="pageBtn" onClick={previousPage}>
@@ -210,6 +213,7 @@ const App = (props) => {
 
 let mapStateToProps = (state) => ({
   data: state.app.data,
+  pageSize: state.app.pageSize,
 });
 
 export default compose(connect(mapStateToProps, { getDataThunk }))(App);

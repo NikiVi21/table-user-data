@@ -5,8 +5,6 @@ const SET_DATA = "SET_DATA";
 let initialState = {
   data: [],
   pageSize: 20,
-  totalUsersCount: null,
-  currentPage: 1,
 };
 
 const appReducer = (state = initialState, action) => {
