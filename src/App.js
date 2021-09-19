@@ -17,7 +17,6 @@ const App = (props) => {
   const filterNames = ({ firstName }) => {
     return firstName.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
   };
-  let filteredArr = props.data.filter(filterNames);
 
   const [searchState, setSearchState] = useState("");
 
@@ -25,6 +24,8 @@ const App = (props) => {
     if (!searchState || searchState === "DEFAULT") return -1;
     if (adress.state === searchState) return 1;
   };
+
+  let filteredArr = props.data.filter(filterNames).filter(filterState);
 
   const [user, setUser] = useState();
 
@@ -132,15 +133,23 @@ const App = (props) => {
     if (currentPage !== 0) setCurrentPage(currentPage - 1);
   };
   let nextPage = () => {
-    let pagesCount = Math.ceil(props.data.length / props.pageSize);
+    let pagesCount = Math.ceil(filteredArr.length / props.pageSize);
     if (currentPage + 1 < pagesCount) setCurrentPage(currentPage + 1);
   };
   //
   return (
     <div className="App">
       <div className="searchContainer">
-        <SearchInput onSearch={setSearchValue} value={searchValue} />
-        <SelectState allValue={filteredArr} onSearchState={setSearchState} />
+        <SearchInput
+          onSearch={setSearchValue}
+          value={searchValue}
+          setCurrentPage={setCurrentPage}
+        />
+        <SelectState
+          allValue={filteredArr}
+          onSearchState={setSearchState}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
       <table id="myTable">
         <thead>

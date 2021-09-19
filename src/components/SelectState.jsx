@@ -9,7 +9,10 @@ let SelectState = (props) => {
     <select
       className="searchState"
       defaultValue={"DEFAULT"}
-      onChange={(e) => props.onSearchState(e.target.value)}
+      onChange={(e) => {
+        props.onSearchState(e.target.value);
+        props.setCurrentPage(0);
+      }}
     >
       <option value="DEFAULT">Filter by state</option>
       {iterArr.map((u, i) => {

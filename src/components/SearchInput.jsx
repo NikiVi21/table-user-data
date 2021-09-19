@@ -7,7 +7,10 @@ let SearchInput = (props) => {
       className="search"
       placeholder="Search by name"
       type="text"
-      onChange={(e) => props.onSearch(e.target.value)}
+      onChange={(e) => {
+        props.onSearch(e.target.value);
+        props.setCurrentPage(0);
+      }}
       value={props.value}
     />
   );
