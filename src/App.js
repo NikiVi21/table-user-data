@@ -24,7 +24,7 @@ const App = (props) => {
     if (!searchState || searchState === "DEFAULT") return -1;
     if (adress.state === searchState) return 1;
   };
-
+  let filteredArrByNames = props.data.filter(filterNames);
   let filteredArr = props.data.filter(filterNames).filter(filterState);
 
   const [user, setUser] = useState();
@@ -146,7 +146,7 @@ const App = (props) => {
           setCurrentPage={setCurrentPage}
         />
         <SelectState
-          allValue={filteredArr}
+          allValue={filteredArrByNames}
           onSearchState={setSearchState}
           setCurrentPage={setCurrentPage}
         />
